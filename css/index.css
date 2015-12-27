@@ -1,0 +1,25 @@
+#main{
+	height: 100%;
+	width: 100%;
+
+}
+
+#headline{
+	/*border:1px solid red;*/
+	height: 10%;
+	width: 100%;
+	margin-top: 1%;
+}
+
+#content{
+	/*border:1px solid red;*/
+	height: 80%;
+	width: 100%;
+
+}
+
+#footer{
+	/*border:1px solid red;*/
+	height: 5%;
+	width: 100%;
+}
