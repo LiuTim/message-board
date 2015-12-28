@@ -2,54 +2,69 @@ $(document).ready(function() {
 
     var Mydialog;
 
-	Mydialog = $("#dialog-form").dialog({
+    $( "#message" ).button().on( "click", function() {
+
+        Mydialog = $("#dialog-form").dialog({
             hide:true,              //點擊關閉是隱藏,如果不加這項,關閉彈窗後再點就會出錯
             autoOpen : false,
             resizable : false,
             width : 400,
             height: 600,
             modal : true,
-            });
+            title : "留言上傳",
+            buttons: {
+                Submit: function() {
+                    var user_name =  $('#name').val();
+                    var user_message =  $('textarea#message').val();
 
-    $( "#message" ).button().on( "click", function() {
+                    Cookies.set("Cookie_name",user_name);
+                    Cookies.set("Cookie_message",user_message);
+                    
+                    Mydialog.load("upload_sql.php");
+
+                    Mydialog.dialog( "close" );
+                },
+                Cancel: function() {
+                  Mydialog.dialog( "close" );
+                }
+            }
+        });
+
         Mydialog.dialog("open");
         Mydialog.load("input_message.html");
         //alert("test");
-        return false;
     });
     // 製作 JQuery 對話視窗
 
-    $("#upload_message").button().on("click" , function(){
+    //$("#upload_message").button().on("click" , function(){
         /*message_name = $("#name").val();   
         alert(message_name);*/
         //JQuery 顯示HTML 標籤內容值
 
-        var user_name =  $('#name').val();
-        var user_message =  $('textarea#message').val();
-
-        Cookies.set("Cookie_name",user_name);
-        Cookies.set("Cookie_message",user_message);
         
-        $(this).load("upload_sql.php");
-
-        Mydialog.dialog("close");
+        //$( this ).dialog( "close" );
         //alert(Cookies.get(user_name,user_message));
 
-    });
+    //});
 
     //$("#get").load("js/get_data.php");
-    $( "#upload_message" ).button().on( "click", function() {
+    $( "#renew_message" ).button().on( "click", function() { // 按下上傳後執行
         $.ajax({
             url: "js/get_data.php",
             type: "GET",
             contentType: "application/json; charset=utf-8",
-            dataType: "json",
+            //dataType: "json",
             success: function(Jdata) {
+                var NumOfData = Jdata.length;
+                console.log(NumOfData);
+                console.log(Jdata); 
+
+
                 //alert("SUCCESS!!!");
-                $("#message_tbody").append("<tr>"+
+                /*$("#message_tbody").append("<tr>"+
                                            "<td>"+Jdata[0]+"</td>"+
                                            "<td>"+Jdata[1]+"</td>"+
-                                           "</tr>");         
+                                           "</tr>");         */
             },
             error: function() {
                 alert("ERROR!!!");

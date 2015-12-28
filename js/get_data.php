@@ -11,15 +11,25 @@
 
 	$count = mysql_num_rows($result);//計算取得資料的筆數，並回傳計算結果
 									 //資料來源 https://www.dotblogs.com.tw/jhsiao/archive/2015/06/17/151582.aspx
+	$total_fields=mysql_num_fields($result);// 取得資料欄位數
 
-	while($row=mysql_fetch_array($result)){
+	//echo $count;
+	//echo $total_fields;
 
-		$returnArray = array($row['Message_content'],
-							 $row['name']
-							 );
+	/*while($row=mysql_fetch_array($result)){
+		$returnArray = array($row['Message_content'],$row['name'] );
+		//echo json_encode($returnArray);
+	}*/
+	
 
-	}
-	echo json_encode($returnArray);
+	for ($i=0;$i<$count;$i++) {
+	 	$row = mysql_fetch_assoc($result);
+	 	$returnArray[$i] = array("content" => $row['Message_content'], "name" => $row['name']);
+	 	$out = array_values($returnArray[$i]);
+	 	echo json_encode($out);
+	 } //將陣列以欄位名索引
+  
+    
 
 	mysql_close($cn);
 ?>
