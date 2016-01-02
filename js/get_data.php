@@ -17,17 +17,17 @@
 	//echo $total_fields;
 
 	/*while($row=mysql_fetch_array($result)){
-		$returnArray = array($row['Message_content'],$row['name'] );
-		//echo json_encode($returnArray);
+		$returnArray = array("Mcontent" => $row['Message_content'],"Mname" =>$row['name'] );
+		echo json_encode($returnArray);
 	}*/
-	
+
 
 	for ($i=0;$i<$count;$i++) {
 	 	$row = mysql_fetch_assoc($result);
 	 	$returnArray[$i] = array("content" => $row['Message_content'], "name" => $row['name']);
 	 	$out = array_values($returnArray[$i]);
 	 	echo json_encode($out);
-	 } //將陣列以欄位名索引
+	 } //將陣列以欄位名索引*/
   
     
 
